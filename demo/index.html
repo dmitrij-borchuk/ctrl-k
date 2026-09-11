@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ctrl-k Command Palette Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.35);
+      --code-bg: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(ellipse at top, #1e1b4b, #0f172a 70%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 580px;
+    }
+
+    .hero-action {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    button.btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #ffffff;
+      border: none;
+      padding: 0.875rem 1.75rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px -5px var(--accent-glow);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button.btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px var(--accent-glow);
+    }
+
+    button.btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .kbd-shortcut {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    #log-box {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      max-height: 160px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .log-item {
+      display: flex;
+      gap: 8px;
+    }
+
+    .log-time {
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">
+        <span>⚡ Zero Dependencies</span>
+        <span>•</span>
+        <span>Accessible WAI-ARIA</span>
+      </div>
+      <h1>ctrl-k Command Palette</h1>
+      <p class="subtitle">
+        A modern, lightweight command palette library with instant fuzzy search, hotkey binding, and beautiful theme
+        support.
+      </p>
+      <div class="hero-action">
+        <button id="open-btn" class="btn-primary">
+          <span>Open Palette</span>
+          <span class="kbd-shortcut">
+            <span id="mod-key">Ctrl</span> + K
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="card-title">Interactive Controls</div>
+      <div class="controls-grid">
+        <button id="theme-dark" class="btn-secondary">🌙 Dark Theme</button>
+        <button id="theme-light" class="btn-secondary">☀️ Light Theme</button>
+        <button id="theme-auto" class="btn-secondary">⚙️ Auto Theme</button>
+        <button id="add-dynamic" class="btn-secondary">➕ Add Dynamic Item</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">Event Execution Log</div>
+      <div id="log-box">
+        <div class="log-item">
+          <span class="log-time">[System]</span>
+          <span>Ready. Press Ctrl+K or click Open Palette to begin.</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { CtrlK } from '../src/index';
+
+    const logBox = document.getElementById('log-box');
+    const isMac = /Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+    if (isMac) {
+      document.getElementById('mod-key').textContent = '⌘';
+    }
+
+    function log(message) {
+      const time = new Date().toLocaleTimeString();
+      const div = document.createElement('div');
+      div.className = 'log-item';
+      div.innerHTML = `<span class="log-time">[${time}]</span> <span>${message}</span>`;
+      logBox.prepend(div);
+    }
+
+    // Initialize CtrlK
+    const palette = new CtrlK({
+      groups: {
+        nav: { label: 'Navigation', order: 0 },
+        actions: { label: 'Quick Actions', order: 1 },
+        theme: { label: 'Appearance', order: 2 },
+      },
+      items: [
+        {
+          id: 'home',
+          label: 'Go to Homepage',
+          description: 'Return to root overview',
+          group: 'nav',
+          icon: '🏠',
+          shortcut: ['G', 'H'],
+          handler: () => log('Navigated to Homepage'),
+        },
+        {
+          id: 'docs',
+          label: 'Documentation',
+          description: 'Explore the API reference and guides',
+          group: 'nav',
+          icon: '📖',
+          shortcut: ['G', 'D'],
+          handler: () => log('Opened Documentation'),
+        },
+        {
+          id: 'github',
+          label: 'GitHub Repository',
+          description: 'View source code on GitHub',
+          group: 'nav',
+          icon: '🐙',
+          href: 'https://github.com/dmitrij-borchuk/ctrl-k',
+          target: '_blank',
+        },
+        {
+          id: 'copy-link',
+          label: 'Copy Page Link',
+          description: 'Copy current URL to clipboard',
+          group: 'actions',
+          icon: '🔗',
+          shortcut: ['Ctrl', 'C'],
+          handler: () => {
+            navigator.clipboard?.writeText(window.location.href);
+            log('Copied URL to clipboard!');
+          },
+        },
+        {
+          id: 'create-file',
+          label: 'Create New Document',
+          description: 'Initialize a fresh document in workspace',
+          group: 'actions',
+          icon: '📄',
+          shortcut: ['N'],
+          handler: () => log('Triggered New Document creation'),
+        },
+        {
+          id: 'theme-dark-cmd',
+          label: 'Switch to Dark Mode',
+          description: 'Set palette and application to dark theme',
+          group: 'theme',
+          icon: '🌙',
+          handler: () => {
+            palette.setTheme('dark');
+            log('Palette theme set to Dark');
+          },
+        },
+        {
+          id: 'theme-light-cmd',
+          label: 'Switch to Light Mode',
+          description: 'Set palette and application to light theme',
+          group: 'theme',
+          icon: '☀️',
+          handler: () => {
+            palette.setTheme('light');
+            log('Palette theme set to Light');
+          },
+        },
+      ],
+      onOpen: () => log('Palette opened'),
+      onClose: () => log('Palette closed'),
+      onSelect: (item) => log(`Selected: "${item.label}"`),
+    });
+
+    // Button event listeners
+    document.getElementById('open-btn').addEventListener('click', () => palette.open());
+    document.getElementById('theme-dark').addEventListener('click', () => {
+      palette.setTheme('dark');
+      log('Theme: Dark');
+    });
+    document.getElementById('theme-light').addEventListener('click', () => {
+      palette.setTheme('light');
+      log('Theme: Light');
+    });
+    document.getElementById('theme-auto').addEventListener('click', () => {
+      palette.setTheme('auto');
+      log('Theme: Auto');
+    });
+
+    let dynamicCount = 1;
+    document.getElementById('add-dynamic').addEventListener('click', () => {
+      const id = `dynamic-${dynamicCount}`;
+      palette.register({
+        id,
+        label: `Dynamic Action #${dynamicCount}`,
+        description: 'Dynamically registered command',
+        group: 'actions',
+        icon: '✨',
+        handler: () => log(`Executed Dynamic Action #${id}`),
+      });
+      log(`Registered: Dynamic Action #${dynamicCount}`);
+      dynamicCount++;
+    });
+  </script>
+</body>
+
+</html>

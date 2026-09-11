@@ -1,0 +1,47 @@
+{
+  "name": "ctrl-k",
+  "version": "0.1.0",
+  "description": "Zero-dependency, modern command palette library for web applications with Ctrl+K shortcut.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/ctrl-k.min.js",
+  "jsdelivr": "./dist/ctrl-k.min.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite demo",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "ctrl-k",
+    "cmd-k",
+    "command-palette",
+    "shortcut",
+    "hotkey",
+    "spotlight",
+    "search-dialog",
+    "vanilla-js"
+  ],
+  "author": "Dmytro Borchuk",
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3",
+    "vitest": "^3.0.7"
+  }
+}
