@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/favicon.svg" alt="vanilla-k logo" width="128" height="128" align="middle" />
+</p>
+
 # vanilla-k ⚡
 
 [![npm version](https://img.shields.io/npm/v/vanilla-k.svg)](https://www.npmjs.com/package/vanilla-k)
@@ -284,13 +288,14 @@ npm run publish:npm
 
 ## TODO
 
-- [ ] Check if it is possible to use it on mobile devices
-- [ ] Add possibility to override styles
+- [x] Check if it is possible to use it on mobile devices
+- [x] Add possibility to override styles
 - [x] Add publish to npm
 - [ ] Check focus trap
 - [ ] Check silent returns (`return;`), might be we need to add `console.warn()` for debugging purposes
 - [ ] Publish demo
-- [ ] Optimize
+- [x] Optimize
+- [x] Add favicon to the demo
 
 ---
 

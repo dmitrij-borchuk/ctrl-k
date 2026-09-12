@@ -1,5 +1,6 @@
 export const DEFAULT_STYLES = `
-:root {
+:root,
+[data-ctrlk-theme="light"] {
   --ctrlk-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --ctrlk-backdrop: rgba(15, 23, 42, 0.65);
   --ctrlk-bg: #ffffff;
@@ -53,23 +54,6 @@ export const DEFAULT_STYLES = `
   --ctrlk-kbd-border: #334155;
   --ctrlk-kbd-text: #94a3b8;
   --ctrlk-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-[data-ctrlk-theme="light"] {
-  --ctrlk-backdrop: rgba(15, 23, 42, 0.65);
-  --ctrlk-bg: #ffffff;
-  --ctrlk-card-border: rgba(226, 232, 240, 0.8);
-  --ctrlk-text: #0f172a;
-  --ctrlk-text-muted: #64748b;
-  --ctrlk-input-bg: transparent;
-  --ctrlk-accent: #3b82f6;
-  --ctrlk-item-hover: #f1f5f9;
-  --ctrlk-item-active: #e2e8f0;
-  --ctrlk-group-label: #94a3b8;
-  --ctrlk-kbd-bg: #f8fafc;
-  --ctrlk-kbd-border: #cbd5e1;
-  --ctrlk-kbd-text: #475569;
-  --ctrlk-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .ctrlk-overlay {
