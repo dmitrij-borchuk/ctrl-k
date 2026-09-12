@@ -69,12 +69,12 @@ export class FocusTrap {
 
   private getFocusableElements(): HTMLElement[] {
     const selector = [
-      'input:not([disabled])',
-      'button:not([disabled])',
-      'a[href]',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
-      '[tabindex]:not([tabindex="-1"])',
+      'input:not([disabled]):not([data-visible="false"])',
+      'button:not([disabled]):not([data-visible="false"])',
+      'a[href]:not([data-visible="false"])',
+      'select:not([disabled]):not([data-visible="false"])',
+      'textarea:not([disabled]):not([data-visible="false"])',
+      '[tabindex]:not([tabindex="-1"]):not([data-visible="false"])',
     ].join(', ');
 
     return Array.from(this.container.querySelectorAll<HTMLElement>(selector));
