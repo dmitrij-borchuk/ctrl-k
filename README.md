@@ -5,11 +5,14 @@
 # vanilla-k ⚡
 
 [![npm version](https://img.shields.io/npm/v/vanilla-k.svg)](https://www.npmjs.com/package/vanilla-k)
+[![Demo](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://dmitrij-borchuk.github.io/ctrl-k/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)]()
 
 > A modern, zero-dependency, framework-agnostic **Command Palette** library for web applications. Add an accessible, fast, and beautiful `Ctrl + K` / `Cmd + K` interface to your website in seconds.
+>
+> 🎮 **[Try the Live Interactive Demo](https://dmitrij-borchuk.github.io/ctrl-k/)**
 
 ---
 
@@ -282,6 +285,12 @@ npm test
 # Build production bundles (ESM, CJS, UMD, and .d.ts types)
 npm run build
 
+# Build the interactive demo for GitHub Pages
+npm run build:demo
+
+# Deploy demo to GitHub Pages
+npm run deploy:demo
+
 # Publish package to npm
 npm run publish:npm
 ```
@@ -291,9 +300,8 @@ npm run publish:npm
 - [x] Check if it is possible to use it on mobile devices
 - [x] Add possibility to override styles
 - [x] Add publish to npm
-- [ ] Check focus trap
-- [ ] Check silent returns (`return;`), might be we need to add `console.warn()` for debugging purposes
-- [ ] Publish demo
+- [x] Check focus trap
+- [x] Publish demo
 - [x] Optimize
 - [x] Add favicon to the demo
 
