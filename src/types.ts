@@ -32,7 +32,7 @@ export interface GroupConfig {
   order?: number;
 }
 
-export interface CtrlKOptions {
+export interface VanillaKOptions {
   /** Initial command items */
   items?: CommandItem[];
   /** Configuration for groups (labels and display order) */
@@ -60,6 +60,9 @@ export interface CtrlKOptions {
   /** Custom search handler for dynamic or remote results */
   onSearch?: (query: string) => Promise<CommandItem[] | void> | CommandItem[] | void;
 }
+
+/** Backwards-compatible alias for VanillaKOptions */
+export type CtrlKOptions = VanillaKOptions;
 
 export interface MatchScore {
   score: number;

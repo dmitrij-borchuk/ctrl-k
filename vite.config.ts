@@ -13,12 +13,12 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'CtrlK',
+      name: 'VanillaK',
       formats: ['es', 'cjs', 'umd'],
       fileName: (format) => {
         if (format === 'es') return 'index.mjs';
         if (format === 'cjs') return 'index.cjs';
-        return 'ctrl-k.min.js';
+        return 'vanilla-k.min.js';
       },
     },
     rollupOptions: {

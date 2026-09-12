@@ -1,4 +1,4 @@
-import type { CommandItem, CtrlKOptions } from '../types';
+import type { CommandItem, VanillaKOptions } from '../types';
 import type { GroupedCommands } from '../core/registry';
 
 export interface DOMElements {
@@ -23,7 +23,7 @@ const CLEAR_ICON_SVG = `
 </svg>
 `;
 
-export function createPaletteDOM(options: CtrlKOptions): DOMElements {
+export function createPaletteDOM(options: VanillaKOptions): DOMElements {
   const overlay = document.createElement('div');
   overlay.className = 'ctrlk-overlay';
   overlay.setAttribute('data-state', 'closed');

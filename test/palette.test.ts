@@ -1,48 +1,56 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { CtrlK } from '../src/core/palette';
+import { VanillaK, CtrlK, createVanillaK, createCtrlK } from '../src/index';
 import type { CommandItem } from '../src/types';
 
-describe('CtrlK palette integration', () => {
-  let ctrlk: CtrlK;
+describe('VanillaK palette integration', () => {
+  let vk: VanillaK;
 
   beforeEach(() => {
     document.body.innerHTML = '';
   });
 
   afterEach(() => {
-    if (ctrlk) {
-      ctrlk.destroy();
+    if (vk) {
+      vk.destroy();
     }
   });
 
+  it('exposes CtrlK and createCtrlK as backwards-compatible aliases', () => {
+    expect(CtrlK).toBe(VanillaK);
+    expect(createCtrlK).toBe(createVanillaK);
+    const instance = createCtrlK();
+    expect(instance).toBeInstanceOf(VanillaK);
+    instance.destroy();
+  });
+
   it('initializes and mounts overlay in closed state', () => {
-    ctrlk = new CtrlK();
+    vk = new VanillaK();
     const overlay = document.querySelector('.ctrlk-overlay');
     expect(overlay).not.toBeNull();
     expect(overlay?.getAttribute('data-state')).toBe('closed');
-    expect(ctrlk.isOpen()).toBe(false);
+    expect(vk.isOpen()).toBe(false);
   });
 
   it('opens and closes via programmatic API', () => {
     const onOpen = vi.fn();
     const onClose = vi.fn();
 
-    ctrlk = new CtrlK({ onOpen, onClose });
-    ctrlk.open();
+    vk = new VanillaK({ onOpen, onClose });
+    vk.open();
 
     const overlay = document.querySelector('.ctrlk-overlay');
     expect(overlay?.getAttribute('data-state')).toBe('open');
-    expect(ctrlk.isOpen()).toBe(true);
+    expect(vk.isOpen()).toBe(true);
     expect(onOpen).toHaveBeenCalledTimes(1);
 
-    ctrlk.close();
+    vk.close();
     expect(overlay?.getAttribute('data-state')).toBe('closed');
-    expect(ctrlk.isOpen()).toBe(false);
+    expect(vk.isOpen()).toBe(false);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it('opens on hotkey press', () => {
-    ctrlk = new CtrlK();
+    vk = new VanillaK();
 
     const event = new KeyboardEvent('keydown', {
       key: 'k',
@@ -52,7 +60,7 @@ describe('CtrlK palette integration', () => {
     });
     window.dispatchEvent(event);
 
-    expect(ctrlk.isOpen()).toBe(true);
+    expect(vk.isOpen()).toBe(true);
   });
 
   it('renders command items and handles item selection', () => {
@@ -63,8 +71,8 @@ describe('CtrlK palette integration', () => {
       { id: '2', label: 'Item 2', shortcut: ['Ctrl', 'S'] },
     ];
 
-    ctrlk = new CtrlK({ items, onSelect });
-    ctrlk.open();
+    vk = new VanillaK({ items, onSelect });
+    vk.open();
 
     const itemEls = document.querySelectorAll('.ctrlk-item');
     expect(itemEls).toHaveLength(2);
@@ -74,7 +82,7 @@ describe('CtrlK palette integration', () => {
 
     expect(handler).toHaveBeenCalledTimes(1);
     expect(onSelect).toHaveBeenCalledTimes(1);
-    expect(ctrlk.isOpen()).toBe(false); // closes on select by default
+    expect(vk.isOpen()).toBe(false); // closes on select by default
   });
 
   it('navigates with keyboard and executes with Enter', () => {
@@ -85,8 +93,8 @@ describe('CtrlK palette integration', () => {
       { id: '2', label: 'Second', handler: handler2 },
     ];
 
-    ctrlk = new CtrlK({ items });
-    ctrlk.open();
+    vk = new VanillaK({ items });
+    vk.open();
 
     const dialog = document.querySelector('.ctrlk-dialog') as HTMLElement;
 
@@ -104,14 +112,14 @@ describe('CtrlK palette integration', () => {
   });
 
   it('closes on Escape key', () => {
-    ctrlk = new CtrlK();
-    ctrlk.open();
-    expect(ctrlk.isOpen()).toBe(true);
+    vk = new VanillaK();
+    vk.open();
+    expect(vk.isOpen()).toBe(true);
 
     const dialog = document.querySelector('.ctrlk-dialog') as HTMLElement;
     dialog.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
 
-    expect(ctrlk.isOpen()).toBe(false);
+    expect(vk.isOpen()).toBe(false);
   });
 
   it('filters items when typing in search input', () => {
@@ -120,8 +128,8 @@ describe('CtrlK palette integration', () => {
       { id: 'open', label: 'Open File' },
     ];
 
-    ctrlk = new CtrlK({ items });
-    ctrlk.open();
+    vk = new VanillaK({ items });
+    vk.open();
 
     const input = document.querySelector('.ctrlk-input') as HTMLInputElement;
     input.value = 'save';
@@ -133,23 +141,23 @@ describe('CtrlK palette integration', () => {
   });
 
   it('supports dynamic registration while open', () => {
-    ctrlk = new CtrlK({ items: [] });
-    ctrlk.open();
+    vk = new VanillaK({ items: [] });
+    vk.open();
 
     expect(document.querySelectorAll('.ctrlk-item')).toHaveLength(0);
 
-    ctrlk.register({ id: 'dynamic', label: 'Dynamic Action' });
+    vk.register({ id: 'dynamic', label: 'Dynamic Action' });
     expect(document.querySelectorAll('.ctrlk-item')).toHaveLength(1);
 
-    ctrlk.unregister('dynamic');
+    vk.unregister('dynamic');
     expect(document.querySelectorAll('.ctrlk-item')).toHaveLength(0);
   });
 
   it('destroys and cleans up DOM elements', () => {
-    ctrlk = new CtrlK();
+    vk = new VanillaK();
     expect(document.querySelector('.ctrlk-overlay')).not.toBeNull();
 
-    ctrlk.destroy();
+    vk.destroy();
     expect(document.querySelector('.ctrlk-overlay')).toBeNull();
   });
 });

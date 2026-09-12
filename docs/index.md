@@ -1,10 +1,10 @@
-# ctrl-k Documentation
+# vanilla-k Documentation
 
-Welcome to the comprehensive documentation for `ctrl-k`.
+Welcome to the comprehensive documentation for `vanilla-k`.
 
 ## Overview
 
-`ctrl-k` is an accessible, zero-dependency, framework-agnostic Command Palette library built in TypeScript. It is designed to provide modern web applications with a fast, spotlight-style command search interface activated via `Ctrl + K` (Windows/Linux) or `Cmd + K` (macOS).
+`vanilla-k` is an accessible, zero-dependency, framework-agnostic Command Palette library built in TypeScript. It is designed to provide modern web applications with a fast, spotlight-style command search interface activated via `Ctrl + K` (Windows/Linux) or `Cmd + K` (macOS).
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ Welcome to the comprehensive documentation for `ctrl-k`.
 
 ## Architecture & Design
 
-`ctrl-k` has been built according to the following design principles:
+`vanilla-k` has been built according to the following design principles:
 
 1. **Zero Runtime Dependencies**: The core package relies on standard Web APIs (DOM, CSS Custom Properties, Keyboard Events, WAI-ARIA) and contains no external dependencies.
 2. **Platform-Aware Hotkey Handling**: Normalizes modifiers across platforms. On macOS, `mod` maps to `metaKey` (⌘), while on Windows and Linux it maps to `ctrlKey`. It automatically avoids triggering inside input fields (`<input>`, `<textarea>`, `[contenteditable]`) unless explicitly instructed.
@@ -33,13 +33,13 @@ Welcome to the comprehensive documentation for `ctrl-k`.
 ## Installation
 
 ```bash
-npm install ctrl-k
+npm install vanilla-k
 ```
 
 Or via CDN:
 
 ```html
-<script src="https://unpkg.com/ctrl-k/dist/ctrl-k.min.js"></script>
+<script src="https://unpkg.com/vanilla-k/dist/vanilla-k.min.js"></script>
 ```
 
 ---
@@ -49,9 +49,9 @@ Or via CDN:
 ### Instantiation
 
 ```typescript
-import { CtrlK } from 'ctrl-k';
+import { VanillaK } from 'vanilla-k';
 
-const ctrlK = new CtrlK({
+const palette = new VanillaK({
   placeholder: 'Type a command or search...',
   hotkey: ['ctrl+k', 'meta+k'],
   theme: 'auto',
@@ -116,7 +116,7 @@ When an item is matched, bonuses are granted for:
 To connect to a backend API or database, provide an `onSearch` handler:
 
 ```typescript
-const ctrlK = new CtrlK({
+const palette = new VanillaK({
   onSearch: async (query) => {
     if (!query) return [];
     const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
@@ -135,7 +135,7 @@ const ctrlK = new CtrlK({
 
 ## Theming & CSS Variables
 
-`ctrl-k` provides standard CSS custom properties for effortless theme integration:
+`vanilla-k` provides standard CSS custom properties for effortless theme integration:
 
 | Variable | Default (Light) | Default (Dark) | Description |
 | :--- | :--- | :--- | :--- |
@@ -151,5 +151,5 @@ const ctrlK = new CtrlK({
 
 To toggle themes dynamically:
 ```javascript
-ctrlK.setTheme('dark');  // 'dark', 'light', or 'auto'
+palette.setTheme('dark');  // 'dark', 'light', or 'auto'
 ```

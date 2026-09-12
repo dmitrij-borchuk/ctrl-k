@@ -1,12 +1,12 @@
-import type { CommandItem, CtrlKOptions } from '../types';
+import type { CommandItem, VanillaKOptions } from '../types';
 import { CommandRegistry } from './registry';
 import { bindHotkeys } from './hotkey';
 import { injectDefaultStyles } from '../ui/styles';
 import { FocusTrap } from '../ui/focus-trap';
 import { createPaletteDOM, renderPaletteList, type DOMElements } from '../ui/dom';
 
-export class CtrlK {
-  private options: Required<Omit<CtrlKOptions, 'onOpen' | 'onClose' | 'onSelect' | 'onSearch' | 'groups'>> & {
+export class VanillaK {
+  private options: Required<Omit<VanillaKOptions, 'onOpen' | 'onClose' | 'onSelect' | 'onSearch' | 'groups'>> & {
     onOpen?: () => void;
     onClose?: () => void;
     onSelect?: (item: CommandItem) => void;
@@ -23,7 +23,7 @@ export class CtrlK {
   private currentSelectableItems: CommandItem[] = [];
   private searchCounter: number = 0;
 
-  constructor(options: CtrlKOptions = {}) {
+  constructor(options: VanillaKOptions = {}) {
     this.options = {
       items: options.items || [],
       placeholder: options.placeholder || 'Type a command or search...',
@@ -327,3 +327,5 @@ export class CtrlK {
     this.registry.clear();
   }
 }
+
+export { VanillaK as CtrlK };

@@ -1,6 +1,6 @@
-# ctrl-k ⚡
+# vanilla-k ⚡
 
-[![npm version](https://img.shields.io/npm/v/ctrl-k.svg)](https://www.npmjs.com/package/ctrl-k)
+[![npm version](https://img.shields.io/npm/v/vanilla-k.svg)](https://www.npmjs.com/package/vanilla-k)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)]()
@@ -26,13 +26,13 @@
 Install via npm, pnpm, or yarn:
 
 ```bash
-npm install ctrl-k
+npm install vanilla-k
 ```
 
 Or include directly in HTML via CDN:
 
 ```html
-<script src="https://unpkg.com/ctrl-k/dist/ctrl-k.min.js"></script>
+<script src="https://unpkg.com/vanilla-k/dist/vanilla-k.min.js"></script>
 ```
 
 ---
@@ -42,9 +42,9 @@ Or include directly in HTML via CDN:
 ### Vanilla JavaScript / TypeScript
 
 ```javascript
-import { CtrlK } from 'ctrl-k';
+import { VanillaK } from 'vanilla-k';
 
-const palette = new CtrlK({
+const palette = new VanillaK({
   groups: {
     nav: { label: 'Navigation', order: 0 },
     actions: { label: 'Quick Actions', order: 1 },
@@ -94,11 +94,11 @@ Now press `Ctrl + K` (or `Cmd + K` on macOS) anywhere on the page to launch the 
 
 ```tsx
 import { useEffect } from 'react';
-import { CtrlK } from 'ctrl-k';
+import { VanillaK } from 'vanilla-k';
 
 export function App() {
   useEffect(() => {
-    const palette = new CtrlK({
+    const palette = new VanillaK({
       items: [
         {
           id: 'dashboard',
@@ -124,12 +124,12 @@ export function App() {
 ```vue
 <script setup>
 import { onMounted, onUnmounted } from 'vue';
-import { CtrlK } from 'ctrl-k';
+import { VanillaK } from 'vanilla-k';
 
 let palette;
 
 onMounted(() => {
-  palette = new CtrlK({
+  palette = new VanillaK({
     items: [
       {
         id: 'docs',
@@ -150,7 +150,9 @@ onUnmounted(() => {
 
 ## 📖 API Reference
 
-### `new CtrlK(options?: CtrlKOptions)`
+### `new VanillaK(options?: VanillaKOptions)`
+
+> **Note**: `CtrlK` and `CtrlKOptions` are also exported as aliases for backwards compatibility.
 
 #### Options
 
@@ -194,7 +196,7 @@ onUnmounted(() => {
 ### Instance Methods
 
 ```typescript
-const palette = new CtrlK();
+const palette = new VanillaK();
 
 // Open the palette
 palette.open();
@@ -232,7 +234,7 @@ palette.destroy();
 
 ## 🎨 Customizing Styles
 
-`ctrl-k` automatically injects clean, modern styles with full dark/light theme support. You can customize colors, spacing, and typography by overriding CSS variables:
+`vanilla-k` automatically injects clean, modern styles with full dark/light theme support. You can customize colors, spacing, and typography by overriding CSS variables:
 
 ```css
 :root {
@@ -250,7 +252,7 @@ palette.destroy();
 If you prefer to supply 100% custom styling from scratch, pass `injectStyles: false`:
 
 ```javascript
-const palette = new CtrlK({
+const palette = new VanillaK({
   injectStyles: false,
 });
 ```
@@ -262,7 +264,7 @@ const palette = new CtrlK({
 ```bash
 # Clone the repository
 git clone https://github.com/dmitrij-borchuk/ctrl-k.git
-cd ctrl-k
+cd vanilla-k
 
 # Install dependencies
 npm install
@@ -275,15 +277,20 @@ npm test
 
 # Build production bundles (ESM, CJS, UMD, and .d.ts types)
 npm run build
+
+# Publish package to npm
+npm run publish:npm
 ```
 
 ## TODO
 
 - [ ] Check if it is possible to use it on mobile devices
 - [ ] Add possibility to override styles
-- [ ] Add publish to npm
+- [x] Add publish to npm
 - [ ] Check focus trap
 - [ ] Check silent returns (`return;`), might be we need to add `console.warn()` for debugging purposes
+- [ ] Publish demo
+- [ ] Optimize
 
 ---
 

@@ -1,17 +1,22 @@
-import { CtrlK } from './core/palette';
-import type { CtrlKOptions, CommandItem, GroupConfig } from './types';
+import { VanillaK, CtrlK } from './core/palette';
+import type { VanillaKOptions, CtrlKOptions, CommandItem, GroupConfig } from './types';
 
 /**
- * Factory helper function to instantiate a new CtrlK command palette.
+ * Factory helper function to instantiate a new VanillaK command palette.
  */
-export function createCtrlK(options: CtrlKOptions = {}): CtrlK {
-  return new CtrlK(options);
+export function createVanillaK(options: VanillaKOptions = {}): VanillaK {
+  return new VanillaK(options);
 }
 
-export { CtrlK };
-export default CtrlK;
+/**
+ * Backwards compatibility alias for createVanillaK.
+ */
+export const createCtrlK = createVanillaK;
 
-export type { CtrlKOptions, CommandItem, GroupConfig };
+export { VanillaK, CtrlK };
+export default VanillaK;
+
+export type { VanillaKOptions, CtrlKOptions, CommandItem, GroupConfig };
 export { fuzzyScore, searchCommands } from './core/search';
 export { bindHotkeys, parseHotkey, matchesHotkey } from './core/hotkey';
 export { DEFAULT_STYLES, injectDefaultStyles, removeDefaultStyles } from './ui/styles';
